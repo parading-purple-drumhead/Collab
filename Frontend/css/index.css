@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body{
+    background: url("../images/email-pattern.png");
+}
+
+.brand-logo{
+    font-family: 'Yusei Magic', sans-serif;
+}
+
+
+span{
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+}
+
+img{ 
+    max-width: 50rem;
+}
+
+nav{
+    margin-bottom: 150px;
+}
