@@ -26,7 +26,7 @@ function updateUser(inputs) {
       console.log(error);
     });
 
-    // window.location.href = "./my_profile.html";
+    window.location.href = "./discover.html";
   } catch {
     console.log("error");
     return 0;
