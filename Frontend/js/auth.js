@@ -1,7 +1,7 @@
 const google_signups = document.querySelectorAll("#google-signup");
 const google_signouts = document.querySelectorAll("#google-signout");
 
-link = "http://127.0.0.1:8000"
+link = "https://67b3973ffccc.ngrok.io"
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
