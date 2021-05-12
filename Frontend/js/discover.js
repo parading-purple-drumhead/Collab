@@ -203,4 +203,21 @@ document.addEventListener("click", function (e) {
 
 document.addEventListener("DOMContentLoaded", function () {
   getAllPosts();
+
+  const qualifications = [];
+  const event = [];
+  const roles = [];
+
+  const event_checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  event_checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change',e => {
+      const checked = document.querySelectorAll('input[type="checkbox"]:checked.event');
+      console.log(checked, e.target.value);
+      if(checked.length != 0){
+        checked.forEach(check => {
+          console.log(check.value);
+        })
+      }
+    })
+  })
 });
