@@ -30,7 +30,7 @@ app = FastAPI(
     version="1.0",
     openapi_tags=tags_metadata
 )
- 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
