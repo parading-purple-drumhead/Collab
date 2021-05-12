@@ -3,6 +3,15 @@ from typing import Optional
 from models import Post
 import psycopg2
 import uuid
+import os
+import socket
+
+if socket.gethostname() == "Nivi":
+    SSL_MODE = 'prefer'
+    DATABASE_URL = "postgres://postgres:password@localhost:5432/collab"
+else:
+    SSL_MODE = 'require'
+    DATABASE_URL = os.environ['DATABASE_URL']
 
 
 router = APIRouter()
@@ -33,13 +42,7 @@ created_at: col 16
 
 @router.get("/")
 def get_all_posts(request: Request, type: Optional[str] = None):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
 
     cur = conn.cursor()
 
@@ -181,13 +184,7 @@ def get_all_posts(request: Request, type: Optional[str] = None):
 
 @router.get("/{post_id}")
 def get_post(post_id):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
     cur = conn.cursor()
 
     try:
@@ -226,13 +223,7 @@ def get_post(post_id):
 
 @router.put("/{post_id}")
 def edit_post(post_id, post: Post):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
     cur = conn.cursor()
 
     try:
@@ -258,13 +249,7 @@ def edit_post(post_id, post: Post):
 
 @router.post("/add")
 def add_post(post: Post, request: Request):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
     cur = conn.cursor()
 
     uid = request.headers.get("uid")
@@ -303,13 +288,7 @@ def add_post(post: Post, request: Request):
 
 @router.delete("/{post_id}")
 def delete_post(post_id, request: Request):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
     cur = conn.cursor()
 
     uid = request.headers.get("uid")
@@ -363,13 +342,7 @@ def delete_post(post_id, request: Request):
 
 @router.post("/toggle_register/{post_id}")
 def toggle_register_for_post(post_id, request: Request):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
     cur = conn.cursor()
     uid = request.headers.get("uid")
 
@@ -426,13 +399,7 @@ def toggle_register_for_post(post_id, request: Request):
 
 @router.post("/toggle_save/{post_id}")
 def toggle_save_post(post_id, request: Request):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
     cur = conn.cursor()
 
     uid = request.headers.get("uid")
@@ -488,13 +455,7 @@ def toggle_save_post(post_id, request: Request):
 
 @router.get("/responses/{post_id}")
 def get_post_responses(post_id):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
     cur = conn.cursor()
 
     try:

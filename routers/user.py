@@ -1,6 +1,15 @@
 from fastapi import APIRouter, HTTPException
 import psycopg2
 from models import User
+import os
+import socket
+
+if socket.gethostname() == "Nivi":
+    SSL_MODE = 'prefer'
+    DATABASE_URL = "postgres://postgres:password@localhost:5432/collab"
+else:
+    SSL_MODE = 'require'
+    DATABASE_URL = os.environ['DATABASE_URL']
 
 
 router = APIRouter()
@@ -25,13 +34,7 @@ photo_url: col 11
 
 @router.get("/")
 def get_all_users():
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
 
     cur = conn.cursor()
 
@@ -68,13 +71,7 @@ def get_all_users():
 
 @router.get("/{user_id}")
 def get_user(user_id):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
     cur = conn.cursor()
 
     try:
@@ -108,13 +105,7 @@ def get_user(user_id):
 
 @router.post("/add/{user_id}")
 def add_user(user_id, user: User):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
     cur = conn.cursor()
 
     try:
@@ -139,13 +130,7 @@ def add_user(user_id, user: User):
 
 @router.put("/{user_id}")
 def edit_user(user_id, user: User):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
     cur = conn.cursor()
 
     try:
@@ -171,13 +156,7 @@ def edit_user(user_id, user: User):
 
 @router.delete("/{user_id}")
 def delete_user(user_id):
-    conn = psycopg2.connect(
-        host="localhost",
-        database="collab",
-        user="postgres",
-        password="password",
-        port=5432
-    )
+    conn = psycopg2.connect(DATABASE_URL, sslmode=SSL_MODE)
     cur = conn.cursor()
 
     try:
