@@ -13,3 +13,4 @@ starlette==0.13.6
 typing-extensions==3.7.4.3
 uuid==1.30
 uvicorn==0.13.4
+uvloop==0.15.2
